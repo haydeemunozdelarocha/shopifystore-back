@@ -38,22 +38,22 @@ shop = ShopifyAPI::Shop.current
 
 end
 
-def new
+def create
   session = ShopifyAPI::Session.new("edicionuno.myshopify.com", ENV['SHOPIFY_TOKEN'])
 ShopifyAPI::Base.activate_session(session)
         # logger.info("shop" + session.extra['expires_at'])
 #adds basic info
 shop = ShopifyAPI::Shop.current
   new_product = ShopifyAPI::Product.new
-  new_product.title = "Wire Chair"
-  new_product.product_type = "Chairs & Stools"
-  new_product.body_html = "Beautiful wire chair."
-  new_product.variants = [{'option1':'Default',price:'1.00'}]
+  new_product.title = params[:title]
+  new_product.product_type = params[:product_type]
+  new_product.body_html = params[:description]
+  new_product.variants = [{'option1':'Default',price:params[:price]}]
 
   new_product.save
   @product = ShopifyAPI::Product.find(new_product.id)
   #adds image
-  f = File.read('./app/assets/images/chair.jpg')
+  f = File.read(params[:image])
   i = ShopifyAPI::Image.new
   i.attach_image(f) # <-- attach_image is a method, not an attribute
   @product.images << i
