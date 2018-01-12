@@ -11,7 +11,7 @@ default: &default
   username: <%= Rails.application.secrets[:db_user] %>
   password: <%= Rails.application.secrets[:db_password] %>
   host: localhost
-  socket: /tmp/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
