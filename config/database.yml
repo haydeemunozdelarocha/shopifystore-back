@@ -24,6 +24,9 @@ test:
 
 production:
   <<: *default
-  database: edicion_production
-  username: edicion
-  password: <%= ENV['EDICION_DATABASE_PASSWORD'] %>
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: <%= Rails.application.secrets[:db_user] %>
+  password: <%= Rails.application.secrets[:db_password] %>
+  host: us-cdbr-iron-east-05.cleardb.net
