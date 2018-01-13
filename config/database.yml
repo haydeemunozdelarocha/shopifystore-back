@@ -11,11 +11,10 @@ default: &default
   username: <%= Rails.application.secrets[:db_user] %>
   password: <%= Rails.application.secrets[:db_password] %>
   host: us-cdbr-iron-east-05.cleardb.net
-  database: heroku_fc81df2838e0f05
 
 development:
   <<: *default
-  database: edicion_development
+  database: heroku_fc81df2838e0f05
 
 
 # Warning: The database defined as "test" will be erased and
