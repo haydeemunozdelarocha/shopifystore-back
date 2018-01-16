@@ -24,80 +24,17 @@ def index
 # redirect_to permission_url
 #     end
 
-# session = ShopifyAPI::Session.new("edicionuno.myshopify.com", ENV['SHOPIFY_TOKEN'])
-#         logger.info("token" + ENV['SHOPIFY_TOKEN'])
+session = ShopifyAPI::Session.new("edicionuno.myshopify.com", ENV['SHOPIFY_TOKEN'])
+        logger.info("token" + ENV['SHOPIFY_TOKEN'])
 
-# ShopifyAPI::Base.activate_session(session)
-#         # logger.info("shop" + session.extra['expires_at'])
+ShopifyAPI::Base.activate_session(session)
+        # logger.info("shop" + session.extra['expires_at'])
 
-# shop = ShopifyAPI::Shop.current
-#         @products = ShopifyAPI::Product.find(:all, params: { limit: 10 })
-require 'net/http'
-query = "query {
-      shop {
-        name
-        description
-        products(first:20) {
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
-          }
-          edges {
-            node {
-              id
-              title
-              options {
-                name
-                values
-              }
-              variants(first: 250) {
-                pageInfo {
-                  hasNextPage
-                  hasPreviousPage
-                }
-                edges {
-                  node {
-                    title
-                    selectedOptions {
-                      name
-                      value
-                    }
-                    image {
-                      src
-                    }
-                    price
-                  }
-                }
-              }
-              images(first: 250) {
-                pageInfo {
-                  hasNextPage
-                  hasPreviousPage
-                }
-                edges {
-                  node {
-                    src
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }"
-    require 'uri'
-uri = URI.parse('https://edicionuno.myshopify.com/api/graphql')
-http = Net::HTTP.new(uri.host, uri.port)
-header = {'Content-Type'=> 'application/graphql',
-  'X-Shopify-Storefront-Access-Token'=>'e44f3f604d0db92c58a4bc7b1f4d3a7e'
-}
-request = Net::HTTP::Post.new(uri.request_uri, header)
-request.body = query.to_json
-response = http.request(request)
+shop = ShopifyAPI::Shop.current
+        @products = ShopifyAPI::Product.find(:all, params: { limit: 10 })
 
-puts query
         render json: { status: 200,
-                      data: response.body }
+                      data: @products }
 
 end
 
