@@ -28,7 +28,7 @@ order = ShopifyAPI::Order.new(
       :variant_id => @product.variants.first.id
     )
   ],
-  :email => "haydee.mr0@hotmail.com"
+  :email => params[:email]
 )
 
 
